@@ -50,7 +50,7 @@ jobs:
       - name: Enable Actions in repository
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.LG_EMU_SHARED_PAT }}
+          github-token: ${{ secrets.GK_PAT }}
           script: |
            if [ "${{ steps.python-script.outputs.allowAccess }}" == "true" ]; then
              await github.rest.actions.setGithubActionsPermissionsRepository({
