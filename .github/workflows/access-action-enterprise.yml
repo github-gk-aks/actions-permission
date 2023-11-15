@@ -52,19 +52,13 @@ jobs:
         with:
           github-token: ${{ secrets.GK_PAT }}
           script: |
-           if [ "${{ steps.python-script.outputs.allowAccess }}" == "true" ]; then
-             await github.rest.actions.setGithubActionsPermissionsRepository({
-               owner: '${{ fromJSON(github.event.issue.body).target.organization }}',
-               repo: '${{ fromJSON(github.event.issue.body).target.repository }}',
-               enabled: true
-             })
-           else
-             await github.rest.actions.setGithubActionsPermissionsRepository({
-               owner: '${{ fromJSON(github.event.issue.body).target.organization }}',
-               repo: '${{ fromJSON(github.event.issue.body).target.repository }}',
-               enabled: false
-             })
-           fi
+            const allowAccess = ${{ steps.python-script.outputs.allowAccess }};
+            await github.rest.actions.setGithubActionsPermissionsRepository({
+              owner: '${{ fromJSON(github.event.issue.body).target.organization }}',
+              repo: '${{ fromJSON(github.event.issue.body).target.repository }}',
+              enabled: allowAccess
+            });
+
       # - name: Allowing access to components in an internal repository
       #   run: |
       #     if [ "${{ steps.python-script.outputs.allowAccess }}" == "true" ]; then
