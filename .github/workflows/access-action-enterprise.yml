@@ -54,8 +54,8 @@ jobs:
           script: |
             const allowAccess = ${{ steps.python-script.outputs.allowAccess }};
             await github.rest.actions.setGithubActionsPermissionsRepository({
-              owner: '${{ fromJSON(github.event.issue.body).target.organization }}',
-              repo: '${{ fromJSON(github.event.issue.body).target.repository }}',
+              owner: '${{ fromJSON(github.event.issue.body)[matrix.repository].organisation }}',
+              repo: '${{ matrix.repository }}',
               enabled: allowAccess
             });
 
